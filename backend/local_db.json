@@ -1,0 +1,32 @@
+{
+  "users": {
+    "admin_uid": {
+      "uid": "admin_uid",
+      "email": "admin@ammo.com",
+      "password": "password123",
+      "display_name": "Admin Gi\u00c3\u00a1m S\u00c3\u00a1t",
+      "role": "admin",
+      "created_at": "2026-06-22T20:00:00Z"
+    },
+    "driver_uid": {
+      "uid": "driver_uid",
+      "email": "driver@ammo.com",
+      "password": "password123",
+      "display_name": "T\u00c3\u00a0i x\u00e1\u00ba\u00bf 01",
+      "role": "driver",
+      "created_at": "2026-06-22T20:00:00Z"
+    },
+    "shimoon_uid": {
+      "uid": "shimoon_uid",
+      "email": "shimoon2k4@gmail.com",
+      "password": "password123",
+      "display_name": "Ho\u00c3\u00a0ng S\u00e1\u00bb\u00b9 Xu\u00c3\u00a2n S\u00c6\u00a1n",
+      "role": "admin",
+      "created_at": "2026-06-22T20:00:00Z"
+    }
+  },
+  "vehicles": {},
+  "active_routes": {},
+  "missions": {},
+  "vehicle_logs": {}
+}

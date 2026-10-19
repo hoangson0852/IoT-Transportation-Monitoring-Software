@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "453018578312",
+    "project_id": "trannsport-iot-monitor-253",
+    "storage_bucket": "trannsport-iot-monitor-253.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:453018578312:android:7680672cb198f8cdc61e3d",
+        "android_client_info": {
+          "package_name": "com.example.transporting_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYhN3KebYHlhpw5pyc4F6V7sVHJ3NWQD4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

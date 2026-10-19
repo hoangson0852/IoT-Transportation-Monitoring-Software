@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  backend_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: datn_backend_api
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_HOST=0.0.0.0
+      - APP_PORT=8000
+      - MQTT_HOST=mosquitto_broker
+      - MQTT_PORT=1883
+      - JWT_SECRET=super-secret-key-datn-2026
+    depends_on:
+      - mosquitto_broker
+
+  mosquitto_broker:
+    image: eclipse-mosquitto:latest
+    container_name: datn_mosquitto_broker
+    restart: always
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+
+networks:
+  default:
+    name: datn_backend_network

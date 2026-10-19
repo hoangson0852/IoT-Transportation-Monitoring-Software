@@ -1,0 +1,190 @@
+### VARIABLES
+@baseUrl = http://localhost:5001
+
+### 1. Health check API
+GET {{baseUrl}}/health
+Accept: application/json
+
+### 2. Register Driver User
+# @name registerUser
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "driver_test@gmail.com",
+  "password": "password123",
+  "display_name": "Test Driver",
+  "role": "driver"
+}
+
+### 3. Login Driver User
+# @name loginUser
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "driver_test@gmail.com",
+  "password": "password123"
+}
+
+### 4. Get List of Nodes / Vehicles
+GET {{baseUrl}}/nodes
+Accept: application/json
+
+### 5. Get Detail of a Node
+GET {{baseUrl}}/nodes/vehicle_01
+Accept: application/json
+
+### 6. Post Telemetry Data (Valid Standard Format)
+POST {{baseUrl}}/telemetry
+Content-Type: application/json
+
+{
+  "node_id": "vehicle_01",
+  "seq": 1001,
+  "session_id": 901,
+  "temperature": 27.8,
+  "humidity": 63.5,
+  "acceleration": 0.04,
+  "light": 320.0,
+  "latitude": 10.7723,
+  "longitude": 106.6578,
+  "battery": 92.5,
+  "rssi": -48,
+  "snr": 11,
+  "alert_flags": 0,
+  "tamper": 0,
+  "anomaly_flag": 0
+}
+
+### 7. Post Telemetry Data with TAMPER Alert (Standard Format)
+POST {{baseUrl}}/telemetry
+Content-Type: application/json
+
+{
+  "node_id": "vehicle_01",
+  "seq": 1002,
+  "session_id": 901,
+  "temperature": 27.9,
+  "humidity": 63.4,
+  "acceleration": 0.15,
+  "light": 850.0,
+  "latitude": 10.7725,
+  "longitude": 106.6580,
+  "battery": 92.0,
+  "rssi": -50,
+  "snr": 10,
+  "alert_flags": 1,
+  "tamper": 1,
+  "anomaly_flag": 0
+}
+
+### 8. Post Telemetry Data with Low Battery (Standard Format)
+POST {{baseUrl}}/telemetry
+Content-Type: application/json
+
+{
+  "node_id": "vehicle_01",
+  "seq": 1004,
+  "session_id": 901,
+  "temperature": 28.0,
+  "humidity": 63.0,
+  "acceleration": 0.02,
+  "light": 310.0,
+  "latitude": 10.7730,
+  "longitude": 106.6585,
+  "battery": 15.5,
+  "rssi": -55,
+  "snr": 8,
+  "alert_flags": 0,
+  "tamper": 0,
+  "anomaly_flag": 0
+}
+
+### 9. Post Telemetry (Legacy Format - Compatibility Test)
+POST {{baseUrl}}/api/vehicles/vehicle_01/telemetry
+Content-Type: application/json
+
+{
+  "online": true,
+  "temperature": 29.5,
+  "humidity": 68.2,
+  "accel_magnitude": 0.08,
+  "light_level": 340,
+  "tamper": 0,
+  "anomaly_flag": 0,
+  "latitude": 10.7722,
+  "longitude": 106.6575,
+  "rssi": -46,
+  "snr": 12,
+  "rf_anomaly_state": "NORMAL",
+  "knn_prediction": "NORMAL"
+}
+
+### 10. Get Latest Telemetry (All Nodes)
+GET {{baseUrl}}/telemetry/latest?limit=10
+Accept: application/json
+
+### 11. Get Telemetry Logs History (Specific Node)
+GET {{baseUrl}}/telemetry/vehicle_01?limit=20
+Accept: application/json
+
+### 12. Create a Routing Mission (Setting up active route & BallTree)
+# @name createMission
+POST {{baseUrl}}/api/missions
+Content-Type: application/json
+
+{
+  "vehicle_id": "vehicle_01",
+  "driver_uid": "user_admin",
+  "cargo_description": "Vận chuyển đạn dược đợt 1",
+  "origin": "Kho Bách Khoa",
+  "destination": "Kho Thủ Đức",
+  "route_points": [
+    {"lat": 10.772, "lng": 106.657},
+    {"lat": 10.775, "lng": 106.660},
+    {"lat": 10.780, "lng": 106.665}
+  ]
+}
+
+### 13. Get List of Missions
+GET {{baseUrl}}/api/missions
+Accept: application/json
+
+### 14. Get Active Route for a Vehicle
+GET {{baseUrl}}/api/active_routes/vehicle_01
+Accept: application/json
+
+### 15. Post Telemetry outside ML path -> Expect Out Of Route Alert
+POST {{baseUrl}}/telemetry
+Content-Type: application/json
+
+{
+  "node_id": "vehicle_01",
+  "seq": 1005,
+  "session_id": 901,
+  "temperature": 28.1,
+  "humidity": 62.8,
+  "acceleration": 0.05,
+  "light": 312.0,
+  "latitude": 11.2345,
+  "longitude": 107.8901,
+  "battery": 91.0,
+  "rssi": -70,
+  "snr": 3,
+  "alert_flags": 0,
+  "tamper": 0,
+  "anomaly_flag": 0
+}
+
+### 16. Get Active Alerts
+GET {{baseUrl}}/alerts
+Accept: application/json
+
+### 17. Get System Logs
+GET {{baseUrl}}/logs?limit=50
+Accept: application/json
+
+### 18. Export Security Report to CSV
+GET {{baseUrl}}/api/reports/export/vehicle_01
+Accept: text/csv
